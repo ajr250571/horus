@@ -4,11 +4,26 @@ from datetime import datetime
 # Create your models here.
 
 
+class Type(models.Model):
+    name = models.CharField(max_length=50, verbose_name="Nombre")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        managed = True
+        verbose_name = 'Tipo'
+        verbose_name_plural = 'Tipos'
+        ordering = ['id']
+
+
 class Employee(models.Model):
     """Model definition for Employee."""
     # TODO: Define fields here
     names = models.CharField(max_length=150, verbose_name="Nombres")
     dni = models.CharField(max_length=10, verbose_name="DNI", unique=True)
+    type = models.ForeignKey(
+        Type, verbose_name="Tipo", on_delete=models.PROTECT)
     date_joined = models.DateField(
         default=datetime.now, verbose_name="Fecha de registro")
     date_creation = models.DateTimeField(auto_now=True)
@@ -23,7 +38,6 @@ class Employee(models.Model):
 
     class Meta:
         """Meta definition for Employee."""
-        db_table = 'empleado'
         verbose_name = 'Empleado'
         verbose_name_plural = 'Empleados'
         ordering = ['id']
