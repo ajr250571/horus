@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Nombre")
+    name = models.CharField(max_length=50, verbose_name="Nombre", unique=True)
 
     def __str__(self):
         return self.name
@@ -26,8 +26,8 @@ class Employee(models.Model):
         Type, verbose_name="Tipo", on_delete=models.PROTECT)
     date_joined = models.DateField(
         default=datetime.now, verbose_name="Fecha de registro")
-    date_creation = models.DateTimeField(auto_now=True)
-    date_updated = models.DateTimeField(auto_now_add=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
     age = models.PositiveIntegerField(default=0)
     salary = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     state = models.BooleanField(default=True)
