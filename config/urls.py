@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from core.erp import views as erp_views
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", erp_views.HomeView.as_view(), name="home")
