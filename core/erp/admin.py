@@ -1,7 +1,6 @@
+import site
 from django.contrib import admin
-from core.erp.models import Employee, Type
-
+from core.erp.models import Category
 # Register your models here.
 
-admin.site.register(Employee)
-admin.site.register(Type)
+admin.site.register(Category)
