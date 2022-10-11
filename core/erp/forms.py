@@ -9,14 +9,11 @@ class CategoryForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'name': TextInput(
-                attrs={'class': 'form-control',
-                       'placeholder': 'Ingrese el Nombre',
-                       'autocomplete': 'off', }
+                attrs={'placeholder': 'Ingrese el Nombre',
+                       'autofocus': True, }
             ),
             'desc': Textarea(
-                attrs={'class': 'form-control',
-                       'placeholder': 'Ingrese la Descripcion',
-                       'autocomplete': 'off',
+                attrs={'placeholder': 'Ingrese la Descripcion',
                        'rows': 3,
                        'cols': 1, }
             ),
