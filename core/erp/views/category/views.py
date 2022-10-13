@@ -18,7 +18,11 @@ class CategoryListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        data = {'name': 'Willian'}
+        data = {}
+        try:
+            data = Category.objects.get(pk=request.POST['id']).toJSON()
+        except Exception as e:
+            data['error'] = str(e)
         return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
@@ -36,11 +40,35 @@ class CategoryCreateView(CreateView):
     template_name = 'category/create_category.html'
     success_url = reverse_lazy('erp:category_list')
 
+    # def post(self, request, *args, **kwargs):
+    #     data = {}
+    #     try:
+    #         action = request.POST['action']
+    #         if action == 'add':
+    #             form = self.get_form()
+    #             data = form.save()
+    #         else:
+    #             data['error'] = 'No ha ingresado a ninguna opción'
+    #     except Exception as e:
+    #         data['error'] = str(e)
+    #     return JsonResponse(data)
+
+    #     print(request.POST)
+    #     form = CategoryForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponseRedirect(self.success_url)
+    #     self.object = None
+    #     context = self.get_context_data(**kwargs)
+    #     context['form'] = form
+    #     return render(request, self.template_name, context)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = 'Creación de Categorias'
         context["list_url"] = reverse_lazy('erp:category_list')
         context["entity"] = 'Categorias'
+        context["action"] = 'add'
         return context
 
 class CategoryUpdateView(UpdateView):
@@ -48,10 +76,11 @@ class CategoryUpdateView(UpdateView):
     form_class = CategoryForm
     template_name = "category/update_category.html"
     success_url = reverse_lazy('erp:category_list')
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = 'Actualizar Categoria'
+        context["title"] = 'Edicion de Categoria'
         context["list_url"] = reverse_lazy('erp:category_list')
         context["entity"] = 'Categorias'
+        context["action"] = 'edit'
         return context
