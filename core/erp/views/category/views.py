@@ -78,7 +78,12 @@ class CategoryUpdateView(UpdateView):
     template_name = "category/update_category.html"
     success_url = reverse_lazy('erp:category_list')
 
+    # def post(self, request, *args, **kwargs ):
+
+
     def get_context_data(self, **kwargs):
+        # print(self.object)
+        # print(self.get_object())
         context = super().get_context_data(**kwargs)
         context["title"] = 'Edicion de Categoria'
         context["list_url"] = reverse_lazy('erp:category_list')

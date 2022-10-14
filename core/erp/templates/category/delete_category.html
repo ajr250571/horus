@@ -1,18 +1,1 @@
-{% extends "body.html" %}
-{% block content %}
-<div class="card card-default">
-  <div class="card-header">
-    <h3 class="card-title">
-      <i class="fas fa-list"></i>
-      {{ title }}
-    </h3>
-  </div>
-</div>
-<div class="card card-body">
-<form method="post">{% csrf_token %}
-  <p>Esta seguro que Elimina el registro "{{ object }}"?</p>
-   
-  <input type="submit" value="Confirmar" class="btn btn-primary">
-</form>
-</div>
-{% endblock content %}
+{% extends 'delete.html' %}
