@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from core.erp.forms import CategoryForm
 from core.erp.models import Category
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
@@ -68,8 +68,9 @@ class CategoryCreateView(CreateView):
         context["title"] = 'Creación de Categorias'
         context["list_url"] = reverse_lazy('erp:category_list')
         context["entity"] = 'Categorias'
-        context["action"] = 'add'
+        # context["action"] = 'add'
         return context
+
 
 class CategoryUpdateView(UpdateView):
     model = Category
@@ -82,5 +83,19 @@ class CategoryUpdateView(UpdateView):
         context["title"] = 'Edicion de Categoria'
         context["list_url"] = reverse_lazy('erp:category_list')
         context["entity"] = 'Categorias'
-        context["action"] = 'edit'
+        # context["action"] = 'edit'
+        return context
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = "category/delete_category.html"
+    success_url = reverse_lazy('erp:category_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Eliminación de Categoria'
+        context["list_url"] = reverse_lazy('erp:category_list')
+        context["entity"] = 'Categorias'
+        # context["action"] = 'delete'
         return context
